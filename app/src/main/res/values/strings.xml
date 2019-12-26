@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">AndroidEXExample2</string>
     <string name="insertBtn">Click</string>
+    <string name="deleteElementsBtn">Delete All</string>
+    <string name="deleteElementBtnV1">Delete</string>
+    <string name="deleteElementBtnV2">X</string>
 </resources>

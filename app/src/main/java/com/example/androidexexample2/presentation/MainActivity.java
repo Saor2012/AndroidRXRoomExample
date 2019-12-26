@@ -18,6 +18,8 @@ import com.example.androidexexample2.presentation.adapter.ExampleAdapter;
 
 import java.util.List;
 
+import javax.annotation.CheckReturnValue;
+
 public class MainActivity extends AppCompatActivity implements IMainPresenter.View {
     private IMainPresenter.Presenter presenter;
     private EditText editText;
@@ -38,9 +40,17 @@ public class MainActivity extends AppCompatActivity implements IMainPresenter.Vi
         recyclerView.setAdapter(adapter = new ExampleAdapter(presenter));
         button = findViewById(R.id.appCompatButton);
         button.setOnClickListener(v -> {
-            textView.setText(String.valueOf(editText.getText()));
+            String str = String.valueOf(editText.getText());
+            textView.setText(str);
+            presenter.insert(str);
         });
         //adapter = new ExampleAdapter()
+    }
+
+    protected void onStart() {
+        super.onStart();
+        presenter.startView(this);
+        presenter.init();
     }
 
     @Override

@@ -21,16 +21,29 @@
             android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:gravity="center"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/deleteRVListElementBtn"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/deleteRVListElementBtn"
+            android:layout_width="56dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/rvAddedName"
+            app:layout_constraintTop_toTopOf="parent"
+            android:gravity="center"
+            android:textSize="26dp"
+            android:padding="2dp"
+            android:text="@string/deleteElementBtnV2"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,7 @@ import androidx.room.Query;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
@@ -16,8 +17,11 @@ public interface ExampleLocalDB {
     long insert(Entry entry);
 
     @Query("SELECT * FROM entry")
-    Flowable<List<Entry>> loadList();
+    Flowable<List<String>> loadList();
+
+    @Query("DELETE FROM entry WHERE id = :id")
+    Completable deleteElement(long id);
 
     @Query("DELETE FROM entry")
-    Single daleteEntryTable();
+    Completable daleteEntryTable();
 }

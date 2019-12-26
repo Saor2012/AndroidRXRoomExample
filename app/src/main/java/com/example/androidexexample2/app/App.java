@@ -28,7 +28,7 @@ public class App extends Application {
                 .build();
         return base.getNewDAO();*/
         LocalDataBase database = Room.databaseBuilder(this, LocalDataBase.class, Constants.NAME_DAO)
-              //  .allowMainThreadQueries()
+                .allowMainThreadQueries()
                 .build();
         return database.getNewDAO();
     }

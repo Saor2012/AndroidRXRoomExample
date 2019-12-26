@@ -12,7 +12,7 @@ public class Entry {
     @NonNull
     @PrimaryKey(autoGenerate = true)
     private long id;
-    @ColumnInfo(name = "Name")
+    @ColumnInfo(name = "name")
     private String name;
 
     public Entry(String name) {

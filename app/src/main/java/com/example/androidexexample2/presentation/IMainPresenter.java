@@ -11,5 +11,6 @@ public interface IMainPresenter {
     interface Presenter extends IBasePresenter<View> {
         void insert(String value);
         void init();
+        void delete(long position);
     }
 }
