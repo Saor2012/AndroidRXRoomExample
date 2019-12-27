@@ -42,27 +42,29 @@
             android:layout_height="53dp"
             android:layout_marginStart="64dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="64dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             android:gravity="center"
             android:text="@string/insertBtn"
             app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/appCompatButton2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/appCompatTextView" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:layout_width="84dp"
-            android:layout_height="84dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
+            android:id="@+id/appCompatButton2"
+            android:layout_width="134dp"
+            android:layout_height="53dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="64dp"
+            android:layout_marginBottom="16dp"
             android:text="@string/deleteElementsBtn"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintStart_toEndOf="@+id/appCompatButton"
+            app:layout_constraintTop_toBottomOf="@+id/appCompatTextView"
+            app:layout_constraintVertical_bias="0.8" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
