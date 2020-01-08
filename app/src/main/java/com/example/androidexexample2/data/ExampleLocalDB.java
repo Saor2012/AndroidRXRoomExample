@@ -17,7 +17,7 @@ public interface ExampleLocalDB {
     long insert(Entry entry);
 
     @Query("SELECT * FROM entry")
-    Flowable<List<String>> loadList();
+    Flowable<List<Entry>> loadList();
 
     @Query("DELETE FROM entry WHERE id = :id")
     Completable deleteElement(long id);

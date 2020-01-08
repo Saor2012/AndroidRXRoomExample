@@ -30,9 +30,9 @@ public class ViewHolderAdapter extends RecyclerView.ViewHolder {
     public void bind(String str) { //Entry entry
         if (str != null) {
             binding.rvAddedName.setText(str);
-            binding.deleteRVListElementBtn.setOnClickListener(v -> {
-                presenter.delete(/*Index from new mrthod. Test value*/1);
-            });
+            /*binding.deleteRVListElementBtn.setOnClickListener(v -> {
+                presenter.delete(1); //Index from new mrthod. Test value
+            });*/
         }
     }
 

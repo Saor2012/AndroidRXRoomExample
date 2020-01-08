@@ -20,12 +20,14 @@ import timber.log.Timber;
 public class MainPresenter implements IMainPresenter.Presenter {
     private IMainPresenter.View view;
     private IMainInteractor interactor;
+    private long indexAddElement;
     //private Disposable disposable;
 
     public MainPresenter() {
         if (interactor == null)
             interactor = new MainInteractor();
         //disposable = new CompositeDisposable();
+        indexAddElement = -1;
     }
 
     @Override
@@ -67,7 +69,7 @@ public class MainPresenter implements IMainPresenter.Presenter {
 
                             }
                         });*/
-                    Timber.e("Successfully save at field id %s", aLong);
+                    Timber.e("Successfully save at field id %s", indexAddElement = aLong);
                     dispose();
                 }
                 @Override
@@ -127,5 +129,15 @@ public class MainPresenter implements IMainPresenter.Presenter {
                     Timber.e("Error at interactor.delete(): %s", e.getMessage());
                 }
             });
+    }
+
+    @Override
+    public void onAddClick() {
+        insert(view.getAddValue());
+    }
+
+    @Override
+    public void onDeleteClick() {
+        delete(view.getdeleteIndex());
     }
 }

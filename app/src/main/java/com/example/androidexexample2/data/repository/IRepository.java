@@ -9,7 +9,7 @@ import io.reactivex.Flowable;
 
 public interface IRepository {
     Flowable<Long> insert(String string);
-    Flowable<List<String>> query();
+    Flowable<List<Entry>> query();
     Completable deleteEntry(long id);
     Completable deleteEntryTable();
 }

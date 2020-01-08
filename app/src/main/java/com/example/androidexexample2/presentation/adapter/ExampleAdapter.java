@@ -18,9 +18,12 @@ public class ExampleAdapter extends RecyclerView.Adapter<ViewHolderAdapter> {
     private List<String> list;
     private IMainPresenter.Presenter presenter;
 
-    public ExampleAdapter(IMainPresenter.Presenter presenter) {
-        this.list = new ArrayList<>();
+    public ExampleAdapter(IMainPresenter.Presenter presenter, List<String> entrys) {
+        //this.list = new ArrayList<>();
         this.presenter = presenter;
+        if (entrys != null)
+            this.list = entrys;
+        else this.list = new ArrayList<>();
     }
 
     @NonNull
