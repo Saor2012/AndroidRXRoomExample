@@ -7,9 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.androidexexample2.data.Entity;
 import com.example.androidexexample2.data.Entry;
 import com.example.androidexexample2.databinding.RvItem2Binding;
-import com.example.androidexexample2.databinding.RvItemBinding;
+//import com.example.androidexexample2.databinding.RvItemBinding;
 import com.example.androidexexample2.presentation.IMainPresenter;
 
 public class ViewHolderAdapter extends RecyclerView.ViewHolder {
@@ -27,9 +28,10 @@ public class ViewHolderAdapter extends RecyclerView.ViewHolder {
             binding.setEvent(presenter);
     }
 
-    public void bind(String str) { //Entry entry
-        if (str != null) {
-            binding.rvAddedName.setText(str);
+    public void bind(Entity item, int position) { //Entry entry
+        if (item != null) {
+            item.setPosition(position);
+            binding.rvAddedName.setText(item.getName());
             /*binding.deleteRVListElementBtn.setOnClickListener(v -> {
                 presenter.delete(1); //Index from new mrthod. Test value
             });*/

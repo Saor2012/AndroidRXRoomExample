@@ -19,6 +19,12 @@ public interface ExampleLocalDB {
     @Query("SELECT * FROM entry")
     Flowable<List<Entry>> loadList();
 
+    @Query("SELECT MAX(id) FROM entry")
+    Single<Long> getIndex();
+
+    @Query("SELECT id FROM entry WHERE name = :string")
+    Single<Long> getItemPosition(String string);
+
     @Query("DELETE FROM entry WHERE id = :id")
     Completable deleteElement(long id);
 

@@ -7,6 +7,9 @@
         <variable
             name="event"
             type="com.example.androidexexample2.presentation.IMainPresenter.Presenter" />
+        <variable
+            name="entity"
+            type="com.example.androidexexample2.data.Entity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -44,7 +47,7 @@
             android:textSize="26dp"
             android:padding="2dp"
             android:text="@string/deleteElementBtnV2"
-            android:onClick="@{() -> event.onDeleteClick()}"/>
+            android:onClick="@{() -> event.onDeleteClick(entity)}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

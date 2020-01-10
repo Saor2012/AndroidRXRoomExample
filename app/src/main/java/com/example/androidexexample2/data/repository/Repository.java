@@ -7,6 +7,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 import timber.log.Timber;
 
 public class Repository implements IRepository {
@@ -28,6 +29,17 @@ public class Repository implements IRepository {
             .doOnError(throwable -> Timber.e("Exception: loadList() dao throw error - %s", throwable.getMessage()));*/
         return App.localDB.loadList()
                 .doOnError(throwable -> Timber.e("Exception: loadList() dao throw error - %s", throwable.getMessage()));
+    }
+
+    @Override
+    public Single<Long> getIndex() {
+        return App.localDB.getIndex()
+                .doOnError(throwable -> Timber.e("Exception: getIndex() dao throw error - %s", throwable.getMessage()));
+    }
+
+    @Override
+    public Single<Long> getItemPosition(String string) {
+        return App.localDB.getItemPosition(string);
     }
 
     @Override
