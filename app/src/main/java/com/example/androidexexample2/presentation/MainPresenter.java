@@ -23,12 +23,10 @@ public class MainPresenter implements IMainPresenter.Presenter {
     private IMainPresenter.View view;
     private IMainInteractor interactor;
     private long indexAddElement;
-    //private Disposable disposable;
 
     public MainPresenter() {
         if (interactor == null)
             interactor = new MainInteractor();
-        //disposable = new CompositeDisposable();
         indexAddElement = -1;
     }
 
@@ -41,85 +39,41 @@ public class MainPresenter implements IMainPresenter.Presenter {
     public void stopView() {
         if (view != null) view = null;
         if (interactor != null) interactor = null;
-        /*if (!disposable.isDisposed()) disposable.dispose();
-        disposable = null;*/
     }
 
     @Override
     public void insert(String value) {
         interactor.insert(value)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(new DisposableSubscriber<Long>() {
+            /*.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())*/
+            .subscribe(new DisposableSingleObserver<Long>() {
                 @Override
-                public void onNext(Long aLong) {
-                    /*interactor.getEntry(id)
-                        .subscribe(new DisposableSubscriber<Entity>() {
-                            @Override
-                            public void onNext(Entity entity) {
-                                view.handleAddItem(entity);
-                                dispose();
-                            }
-
-                            @Override
-                            public void onError(Throwable t) {
-                                Timber.e("Exception: getItem at Entity %s", t.getMessage());
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });*/
+                public void onSuccess(Long aLong) {
                     Timber.e("Successfully save at field id %s", indexAddElement = aLong);
-                    /*interactor.query()
-                        .subscribe(new DisposableSubscriber<List<String>>() {
-                            @Override
-                            public void onNext(List<String> strings) {
-                                view.query(strings);
-                                Timber.e("Successfully insert list");
-                                dispose();
-                            }
-
-                            @Override
-                            public void onError(Throwable t) {
-                                Timber.e("Error insert at interactor.query() throw: %s", t.getMessage());
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                Timber.e("onComplete");
-                            }
-                        });*/
                     interactor.queryEntitys()
-                        .subscribe(new DisposableSubscriber<List<Entity>>() {
+                        .subscribe(new DisposableSingleObserver<List<Entity>>() {
                             @Override
-                            public void onNext(List<Entity> strings) {
-                                view.insertList(strings);
+                            public void onSuccess(List<Entity> entities) {
+                                view.insertList(entities);
                                 dispose();
                             }
 
                             @Override
-                            public void onError(Throwable t) {
-                                Timber.e("Error at interactor.query(): %s", t.getMessage());
-                            }
-                            @Override
-                            public void onComplete() {
-                                Timber.e("onComplete");
+                            public void onError(Throwable e) {
+                                Timber.e("Error at interactor.query(): %s", e.getMessage());
                             }
                         });
                     dispose();
                 }
+
                 @Override
-                public void onError(Throwable t) {
-                    Timber.e("Error insert at interactor.insert() throw: %s", t.getMessage());
-                }
-                @Override
-                public void onComplete() {
-                    Timber.e("onComplete");
+                public void onError(Throwable e) {
+                    Timber.e("Error insert at interactor.insert() throw: %s", e.getMessage());
                 }
             });
     }
+
+
 
     @Override
     public long getIndex() {
@@ -144,36 +98,22 @@ public class MainPresenter implements IMainPresenter.Presenter {
 
     @Override
     public void init() {
-        /*disposable = interactor.query()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(v -> view.query(v),
-                    throwable -> Timber.e("Error %s", throwable.getMessage()),
-                    () -> Timber.e("onComplete"));*/
-        //insert("Initual element");
-        //interactor.query()
         interactor.queryEntitys()
-            /*.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())*/
-            /*.subscribe(v -> view.query(v),
-                    throwable -> Timber.e("Error %s", throwable.getMessage()),
-                    () -> Timber.e("onComplete"));*/
-            .subscribe(new DisposableSubscriber<List<Entity>>() {
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new DisposableSingleObserver<List<Entity>>() {
                 @Override
-                public void onNext(List<Entity> strings) {
-                    view.queryList(strings);
+                public void onSuccess(List<Entity> entities) {
+                    view.queryList(entities);
                     dispose();
                 }
 
                 @Override
-                public void onError(Throwable t) {
-                    Timber.e("Error at interactor.query(): %s", t.getMessage());
-                }
-                @Override
-                public void onComplete() {
-                    Timber.e("onComplete");
+                public void onError(Throwable e) {
+                    Timber.e("Error at interactor.query(): %s", e.getMessage());
                 }
             });
+        //view.queryList(null);
     }
 
     @Override
@@ -209,21 +149,17 @@ public class MainPresenter implements IMainPresenter.Presenter {
                 }
             });
         interactor.queryEntitys()
-            .subscribe(new DisposableSubscriber<List<Entity>>() {
+            .subscribe(new DisposableSingleObserver<List<Entity>>() {
                 @Override
-                public void onNext(List<Entity> strings) {
-                    if (strings.isEmpty()) Timber.e("onNext: DB isn't empty");
+                public void onSuccess(List<Entity> entities) {
+                    if (entities.isEmpty()) Timber.e("onNext: DB isn't empty");
                     else Timber.e("onNext: DB is empty");
                     dispose();
                 }
 
                 @Override
-                public void onError(Throwable t) {
-                    Timber.e("Error at interactor.queryEntitys(): %s", t.getMessage());
-                }
-                @Override
-                public void onComplete() {
-                    Timber.e("onComplete");
+                public void onError(Throwable e) {
+                    Timber.e("Error at interactor.queryEntitys(): %s", e.getMessage());
                 }
             });
     }
@@ -235,7 +171,6 @@ public class MainPresenter implements IMainPresenter.Presenter {
 
     @Override
     public void onDeleteClick(Entity item) {
-//        delete(view.getDeleteIndex());
         delete(item.getPosition());
     }
 

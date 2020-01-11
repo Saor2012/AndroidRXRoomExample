@@ -22,58 +22,45 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
     }
 
     @Override
-    public Flowable<Long> insert(String string) {
-        /*return Flowable.defer(() -> Flowable.just(repository.insert(string))) //Long.valueOf(
-            .doOnError(throwable -> Timber.e("Exeption: MainInteractor insert() throw: %s",throwable.getMessage()))
-            .compose(applyFlowableSchedulers());*/
-        /*return Flowable.just(repository.insert(string))
-                .doOnError(throwable -> Timber.e("Exeption: MainInteractor insert() throw: %s",throwable.getMessage()));*/
-        //return repository.insert(string);
+    public Single<Long> insert(String string) {
         if (string != null) return repository.insert(string);
         else {
             throw new NullPointerException("Null entry string value");
-            //return null;
         }
     }
 
     @Override
-    public Flowable<List<String>> query() { //Flowable<List<String>>
-        /*return Flowable.defer(() -> repository.query())
-            .compose(applyFlowableSchedulers());*/
-        /*return repository.query()
-            .compose(applyFlowableSchedulers());*/
-        return Flowable.defer(() -> repository.query())
+    public Single<List<String>> query() {
+        return Single.defer(() -> repository.query())
             .flatMap(entry -> {
-                if (entry == null) return Flowable.error(new Throwable("The list of Entrys dao is null"));
-                return Flowable.just(entry);
+                if (entry == null) return Single.error(new Throwable("The list of Entrys dao is null"));
+                return Single.just(entry);
             })
             .doOnError(throwable -> Timber.e("Exception: Interactor query on flatMap throw error - %s", throwable.getMessage()))
             .map(entries -> {
-                //return new List<String>(){};
-                //new List<String>(Integer.parseInt(entries.toString()));
                 List<String> newList = new ArrayList<String>();
                 entries.forEach(entry -> newList.add(entry.getName()));
-                return newList; //Flowable.just(newList);
+                return newList;
             })
             .doOnError(throwable -> Timber.e("Exception: Interactor query on map throw error - %s", throwable.getMessage()))
-            .compose(applyFlowableSchedulers());
+            .compose(applySingleSchedulers());
     }
 
     @Override
-    public Flowable<List<Entity>> queryEntitys() {
-        return Flowable.defer(() -> repository.query())
+    public Single<List<Entity>> queryEntitys() {
+        return Single.defer(() -> repository.query())
             .flatMap(list -> {
                 if (list != null && list.size() != 0){
-                    return Flowable.just(list);
+                    return Single.just(list);
                 }else {
-                    return Flowable.error(new Throwable("Exception: no records"));
+                    return Single.error(new Throwable("Exception: no records"));
                 }
             }).doOnError(throwable -> Timber.e("Exception: Interactor loadListEntity  %s", throwable.getMessage()))
             .flatMap(list -> {
                 List<Entity> entityList = new ArrayList<>();
                 list.forEach(v -> entityList.add(new Entity(v.getId(),v.getName())));
-                return Flowable.just(entityList);
-            }).compose(applyFlowableSchedulers());
+                return Single.just(entityList);
+            });
     }
 
     @Override

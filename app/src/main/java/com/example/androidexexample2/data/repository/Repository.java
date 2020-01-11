@@ -16,17 +16,13 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public Flowable<Long> insert(String string) {
-        return Flowable.defer(() -> Flowable.just(App.localDB.insert(new Entry(string))))
+    public Single<Long> insert(String string) {
+        return Single.defer(() -> Single.just(App.localDB.insert(new Entry(string))))
                 .doOnError(throwable -> Timber.e("Exception: insert at insert dao throw error: %s", throwable.getMessage()));
     }
 
     @Override
-    public Flowable<List<Entry>> query() { //Flowable<List<String>>
-        //return new ArrayList<String>(App.localDB.loadList());
-        //return Flowable.just(App.localDB.loadList()).flatMap(entry -> entry);
-        /*return App.localDB.loadList()
-            .doOnError(throwable -> Timber.e("Exception: loadList() dao throw error - %s", throwable.getMessage()));*/
+    public Single<List<Entry>> query() {
         return App.localDB.loadList()
                 .doOnError(throwable -> Timber.e("Exception: loadList() dao throw error - %s", throwable.getMessage()));
     }

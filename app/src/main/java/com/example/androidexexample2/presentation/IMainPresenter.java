@@ -12,9 +12,8 @@ public interface IMainPresenter {
         void queryList(List<Entity> value);
         void insertList(List<Entity> list);
         String getAddValue();
-        long getDeleteIndex();
-        String getItemValue();
-        //void insert();
+        //long getDeleteIndex();
+        //String getItemValue();
         void delete(long position);
         void deleteAll();
     }

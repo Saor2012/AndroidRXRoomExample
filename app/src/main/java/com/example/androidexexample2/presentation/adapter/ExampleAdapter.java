@@ -22,7 +22,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ViewHolderAdapter> {
     private IMainPresenter.Presenter presenter;
 
     public ExampleAdapter(IMainPresenter.Presenter presenter, List<Entity> strings) {
-        this.list = new ArrayList<>();
+        this.list = strings;
         this.presenter = presenter;
     }
 
@@ -45,15 +45,18 @@ public class ExampleAdapter extends RecyclerView.Adapter<ViewHolderAdapter> {
 
     public void addNewItem(List<Entity> list) {
         this.list = list;
-        /*Entity item = list.get(getItemCount() - 1);
-        item.setPosition(getItemCount() - 1);
-        list.add(getItemCount() - 1, item);*/
         notifyItemChanged(getItemCount() - 1);
     }
 
     public void deleteItem(long position) {
-        list.remove(position);
-        notifyItemChanged((int)position);
+        if (position != -1) {
+            if (!list.remove(position)) {
+                Timber.e("Error at adapter.deleteItem() with position: %s", position);
+            } else {
+                Timber.e("Sucsessful delete item with position: %s", position);
+            }
+            notifyItemChanged((int) position);
+        }
     }
 
     public void deleteAll() {
@@ -63,7 +66,4 @@ public class ExampleAdapter extends RecyclerView.Adapter<ViewHolderAdapter> {
         notifyDataSetChanged();
     }
 
-    public void initList() {
-        notifyDataSetChanged();
-    }
 }

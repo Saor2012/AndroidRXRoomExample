@@ -11,9 +11,9 @@ import io.reactivex.Single;
 
 public interface IMainInteractor {
     ///Single<String> insert(String string);
-    Flowable<Long> insert(String string);
-    Flowable<List<String>> query();
-    Flowable<List<Entity>> queryEntitys();
+    Single<Long> insert(String string);
+    Single<List<String>> query();
+    Single<List<Entity>> queryEntitys();
     Single<Long> getIndex();
     Single<Long> getItemPosition(String string);
     Completable delete(long id);

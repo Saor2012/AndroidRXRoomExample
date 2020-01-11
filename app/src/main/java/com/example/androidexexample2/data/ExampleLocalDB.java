@@ -17,7 +17,7 @@ public interface ExampleLocalDB {
     long insert(Entry entry);
 
     @Query("SELECT * FROM entry")
-    Flowable<List<Entry>> loadList();
+    Single<List<Entry>> loadList();
 
     @Query("SELECT MAX(id) FROM entry")
     Single<Long> getIndex();

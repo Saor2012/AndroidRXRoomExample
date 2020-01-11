@@ -28,10 +28,6 @@ import java.util.List;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements IMainPresenter.View {
     private IMainPresenter.Presenter presenter;
-    /*private EditText editText;
-    private TextView textView;
-    private Button button;
-    private RecyclerView recyclerView;*/
     private ExampleAdapter adapter;
 
     /*@SuppressLint("WrongConstant")
@@ -103,19 +99,19 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
         if (presenter != null) {
             getBinding().recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL, false));
             getBinding().recyclerView.setAdapter(adapter = new ExampleAdapter(presenter, null)); //<-- Need strings list, v1
-            //adapter.initList();
+
         }
     }
 
     @Override
     public void query(List<String> value) {
-        /*if (adapter != null)
+        /*if (adapter != null && value != null)
             adapter.addNewItem(value);
         else {
             initAdapter(value);
         }*/
         //if (adapter == null) initAdapter(value);
-        initAdapter(value);
+        if (value != null) initAdapter(value);
     }
 
     @SuppressLint("WrongConstant")
@@ -131,8 +127,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
 
     @Override
     public void insertList(List<Entity> list) {
-        if (adapter != null)
-            adapter.addNewItem(list);
+        if (adapter != null) adapter.addNewItem(list);
     }
 
     @Override
@@ -140,6 +135,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
         String value = String.valueOf(getBinding().appCompatEditText.getText());
         if (!value.equals("")) {
             getBinding().appCompatTextView.setText(value);
+            getBinding().appCompatEditText.setText("");
             return value;
         } else {
             getBinding().appCompatTextView.setText("Hello world");
@@ -148,7 +144,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
         }
     }
 
-    @Override
+    /*@Override
     public long getDeleteIndex() {
         //presenter.
         return 0;
@@ -157,7 +153,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
     @Override
     public String getItemValue() {
         return "Str";
-    }
+    }*/
 
     /*@Override
     public void insert() {
