@@ -27,7 +27,8 @@ public class ViewHolderAdapter extends RecyclerView.ViewHolder {
 
     public void bind(Entity item, int position) { //Entry entry
         if (item != null) {
-            item.setPosition(position);
+            if (position != 0 || position != -1) item.setPosition(position);
+            else item.setPosition((int) item.getId());
             binding.setEntity(item);
             binding.rvAddedName.setText(item.getName());
 

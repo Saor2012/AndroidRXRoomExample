@@ -23,6 +23,7 @@ public class ExampleAdapter extends RecyclerView.Adapter<ViewHolderAdapter> {
 
     public ExampleAdapter(IMainPresenter.Presenter presenter, List<Entity> strings) {
         this.list = strings;
+        Timber.e("Current list size %s", getItemCount());
         this.presenter = presenter;
     }
 
@@ -48,20 +49,20 @@ public class ExampleAdapter extends RecyclerView.Adapter<ViewHolderAdapter> {
         notifyItemChanged(getItemCount() - 1);
     }
 
-    public void deleteItem(long position) {
+    public void deleteItem(int position) {
         if (position != -1) {
-            if (!list.remove(position)) {
-                Timber.e("Error at adapter.deleteItem() with position: %s", position);
+            if (list.remove(position) == null) {
+                Timber.e("Error at adapter.deleteItem() with position %s, list size %s", position, getItemCount());
             } else {
-                Timber.e("Sucsessful delete item with position: %s", position);
+                Timber.e("Sucsessful delete item with position %s, list size %s", position, getItemCount());
             }
-            notifyItemChanged((int) position);
+            notifyItemChanged(position);
         }
     }
 
     public void deleteAll() {
         list.clear();
-        if (list.isEmpty()) Timber.e("List size: %s", getItemCount());
+        if (list.isEmpty() && list.size() == 0) Timber.e("List size: %s", getItemCount());
         else Timber.e("List size: %s", getItemCount());
         notifyDataSetChanged();
     }

@@ -39,7 +39,10 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
             .doOnError(throwable -> Timber.e("Exception: Interactor query on flatMap throw error - %s", throwable.getMessage()))
             .map(entries -> {
                 List<String> newList = new ArrayList<String>();
-                entries.forEach(entry -> newList.add(entry.getName()));
+                entries.forEach(entry -> {
+                    newList.add(entry.getName());
+                    Timber.e("Item id %s", entry.getId());
+                });
                 return newList;
             })
             .doOnError(throwable -> Timber.e("Exception: Interactor query on map throw error - %s", throwable.getMessage()))
@@ -58,7 +61,10 @@ public class MainInteractor extends BaseInteractor implements IMainInteractor {
             }).doOnError(throwable -> Timber.e("Exception: Interactor loadListEntity  %s", throwable.getMessage()))
             .flatMap(list -> {
                 List<Entity> entityList = new ArrayList<>();
-                list.forEach(v -> entityList.add(new Entity(v.getId(),v.getName())));
+                list.forEach(v -> {
+                    entityList.add(new Entity(v.getId(),v.getName()));
+                    Timber.e("Item id %s", v.getId());
+                });
                 return Single.just(entityList);
             });
     }

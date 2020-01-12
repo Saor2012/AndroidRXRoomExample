@@ -121,7 +121,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
             getBinding().recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayout.VERTICAL,false));
             adapter = new ExampleAdapter(presenter, entities);
             getBinding().recyclerView.setAdapter(adapter);
-            adapter.notifyDataSetChanged(); //
+            //adapter.notifyDataSetChanged(); //View list
         }
     }
 
@@ -162,7 +162,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements I
 
     @Override
     public void delete(long position) {
-        adapter.deleteItem(position);
+        adapter.deleteItem((int)position);
     }
 
     @Override
